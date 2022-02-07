@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body></body>
+	<script>
+		// 给定一个长度为N的数组，存储了打乱顺序的每个人喊'过'的次数，请把它还原成正确的顺序，即数组的第i个元素存储编号i的人喊'过'的次数
+		// 示例：
+		// 输入 0 0 0 2 1
+		// 输出 0 2 0 1 0
+        /*输入一串打乱的喊7次数，输出准确的顺序
+        * 例如：输入00021 代表五个人，喊了三次过（逢7过）
+        *       遇到的就是7，14，17，
+        *       1  2  3  4  5
+        *       6  7  8  9  10
+        *       11 12 13 14 15
+        *       16 17 
+        *       分别出现在2号两次和4号一次，
+        *       准确的顺序是02001
+        * */
+
+		// 输入
+		const input = "0 0 0 2 1";
+
+		const str = input.split(" ");
+
+		// 得到喊7的总次数
+		let num = 0;
+		for (const x of str) {
+			num += parseInt(x, 10);
+		}
+
+		const len = str.length;
+		// 初始化数组：记录每个人喊7的次数
+		const arr = new Array(len).fill(0);
+
+		// index：当前该喊的人
+		// count：当前喊七的次数
+		let [index, count] = [1, 0];
+
+		while (count < num) {
+			if (index.toString(10).indexOf("7") !== -1 || index % 7 === 0) {
+				// 取余：找到喊当前数的是第一个人
+				let i = (index % len) - 1;
+				arr[i]++;
+				count++;
+			}
+
+			index++;
+		}
+
+		// 输出
+		console.log(arr.join(" "));
+	</script>
+</html>
