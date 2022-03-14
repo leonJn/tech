@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<p>非严格递增连续数字序列]输入一个字符串仅包含大小写字母和数字，求字符串中包含的非严格递增连续数字序列的长度（比如12234属于非严格递增连续数字序列）</p>
+<p>示例：</p>
+<p>输入 abc22234019A334bc</p>
+<p>输出 4</p>
+</body>
+<script>
+    let str = '12345'
+    let reg = new RegExp(/[a-zA-Z]/, 'g')
+    let arr = str.replace(reg, ' ').split(' ')
+    let count = 0
+    for(let a=0;a<arr.length;a++){
+        if(arr[a]){
+            for(let i=0;i<arr[a].length;i++){
+                for(let j=i+1;j<=arr[a].length;j++){
+                    let slice = arr[a].slice(i,j)
+                    // console.log(slice)
+                    if(isAddNum(slice)){
+                        // console.log(slice)
+                        if(slice.length > count){
+                            count = slice.length
+                        }
+                    }
+                }
+            }
+        }
+    }
+    function isAddNum(str){
+        if(str.length == 1){
+            return false
+        }
+        let flag = true
+        for(let i = 0; i < str.length-1; i++){
+            if(str[i] != str[i+1] && str[i+1] - str[i] != 1){
+                flag = false
+            }
+        }
+        // console.log(str, flag)
+        if(flag){
+            return true
+        }
+    }
+    console.log(count)
+</script>
+</html>
+
+
+
+// 		public static void maxNumArr(String a) {
+//       char[] arr=a.toCharArray();
+//       char[] tmp=new char[255];
+//       char[] tmp1=new char[255];
+//       int j=0;
+//       int k=0;
+//       //遍历
+//       for (int i = 0; i <arr.length; i++) {
+
+//       //tmp读取数字串
+//           if (arr[i]>='0'&&arr[i]<='9') {
+//               tmp[j] = arr[i];
+//               j++;
+
+//       //一段数字串读取完毕时
+//               if ((i == arr.length - 1) ||
+//                 (arr[i + 1] >= 'a' && arr[i + 1] <= 'z')) {
+//                   if (j > k) {	 //判断数字串的大小
+//                       for (int l = 0; l < j; l++) {
+//                           tmp1[l] = tmp[l];
+//                       }
+//                       k = j;	//新的tmp1的大小
+//                   }
+//                   j = 0;//tmp置零
+//               }
+//           }
+//       }
+
+//       //	输出结果
+//       for (int i = 0; i <k ; i++) {
+//           System.out.print(tmp1[i]);
+//       }
+
+//   }
