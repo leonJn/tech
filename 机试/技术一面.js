@@ -11,7 +11,10 @@
 
 function sensitive(str, key){
     let str2 = str.replace(/_"/g, '@@"').replace(/"_/g, '"@@')
-    let arr = str2.split('@@').map(item => item.substr(0,1) && item.substr(item.length-1,item.length) === '"'? item : item.split('_')).flat().filter(Boolean)
+    let arr = str2.split('@@')
+    .map(item => item.substr(0,1) === '"'? item : item.split('_'))
+    .flat()
+    .filter(Boolean)
     if(arr.length < key){
         console.log('ERROR')
     }else{
