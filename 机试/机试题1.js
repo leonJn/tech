@@ -9,18 +9,21 @@
 // 2
 // password_a123456B_"23123_sdf12"_1233_
 
-function sensitive(str, key){
-    let str2 = str.replace(/_"/g, '@@"').replace(/"_/g, '"@@')
-    let arr = str2.split('@@')
-    .map(item => item.substr(0,1) === '"'? item : item.split('_'))
-    .flat()
-    .filter(Boolean)
-    if(arr.length < key){
+function sensitive(str, key) {
+	let arr = str
+		.replace(/_"/g, '@"')
+		.replace(/"_/g, '"@')
+		.split("@")
+		.filter(Boolean)
+		.map((item) => (item.substr(0, 1) === '"' ? item : item.split("_")))
+		.flat();
+    if(key > arr.length){
         console.log('ERROR')
-    }else{
-        arr[key] = '******'
-        console.log(arr.join('_'))
+        return 
     }
+    arr[key] = '******'
+	console.log(arr.join('_'));
 }
 
-sensitive('password_a123456B_"23123_sdf12"_1233_"23123_sdf12"_', 2)
+sensitive('password_a123456B_"23123_sdf12"_1233_"23123_sdf12"_', 4);
+
